@@ -1,0 +1,15 @@
+
+public aspect TraceAspectBuffington {
+	pointcut classToTrace(): within(*App);
+	
+	pointcut methodToTrace(): classToTrace() && execution(String *App.getName*());
+	
+	before(): methodToTrace() {
+		 System.out.println("\t-->" + thisJoinPointStaticPart.getSignature() + //
+	             "line number: " + thisJoinPointStaticPart.getSourceLocation().getLine());
+	}
+	
+	after(): methodToTrace() {
+		System.out.println("\t<--" + thisJoinPointStaticPart.getSourceLocation().getFileName());
+	}
+}
